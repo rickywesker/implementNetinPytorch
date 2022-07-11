@@ -47,13 +47,10 @@ class GraphConvolution(Module):
         support = torch.mm(input, self.weight)
         # N(A) * H * W
         output = torch.spmm() #sparse matrix mul
-        if self.bias is not None:
-            return output + self.bias
-        else:
-            return output
+        return output + self.bias if self.bias is not None else output
 
     def __repr__(self):
-        return self.__class__.__name__ + '(' + str(self.in_features) + '->' + str(self.out_features) + ')'
+        return f'{self.__class__.__name__}({str(self.in_features)}->{str(self.out_features)})'
 
 import torch.nn as nn
 import torch.nn.functional as F
